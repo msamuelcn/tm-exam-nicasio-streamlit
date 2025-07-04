@@ -65,13 +65,9 @@ if prompt := st.chat_input("What is up?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    context = ''
-    for idx in extract_chunk_idx:
-        context += st.session_state.chunks[idx] + '\n'
 
-    response = response_use_llm(context)
+    response = response_use_llm(st.session_state.chunks, extract_chunk_idx ,prompt)
 
-    response = context
     with st.chat_message("assistant"):
         st.markdown(response)
     # Add assistant response to chat history
