@@ -56,6 +56,8 @@ def response_use_llm(chunks, result_idx,query, thread):
 
     Include some bullet points or table when necessary to make it pleasing to the reader.
 
+    Make the response short as possible as long as it include only important details from the conext.
+
     Add follow up response suggestion to the user that they may ask to make the convesation flowing, and make it short and friendly.
     """
 
