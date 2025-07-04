@@ -6,3 +6,4 @@ pypdf
 PyPDF2
 faiss-cpu
 tiktoken
+streamlit-chat
