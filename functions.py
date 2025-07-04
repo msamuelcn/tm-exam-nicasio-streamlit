@@ -31,22 +31,34 @@ def input_query(index,chunks,query):
 
     return I[0]
 
-def response_use_llm(chunks, result_idx,query):
-    context = "\n\n".join([chunks[idx] for idx in result_idx])
+def use_llm(prompt):
+    # client = OpenAI(api_key = os.environ.get("OPENAI_API_KEY"))
     client = OpenAI(api_key = st.secrets["OPENAI_API_KEY"])
-    prompt = f"""
-    Answer the question based on the context below.
-
-    Context: ```{context}``
-
-    Question: {query}
-    """
-
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
             {"role": "user", "content": prompt}
         ]
     )
-
     return response.choices[0].message.content
+
+def response_use_llm(chunks, result_idx,query, thread):
+    context = "\n\n".join([chunks[idx] for idx in result_idx])
+
+    prompt = f"""
+    Answer the question based on the context below.
+
+    Context: ```{context}```
+
+    Previous thread: ```{thread}````
+
+    Question: ```{query}```
+
+    Include some bullet points or table when necessary to make it pleasing to the reader.
+
+    Add follow up response suggestion to the user that they may ask to make the convesation flowing, and make it short and friendly.
+    """
+
+    response = use_llm(prompt)
+
+    return response
