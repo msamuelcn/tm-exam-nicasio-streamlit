@@ -21,6 +21,7 @@ st.session_state.chunks = None
 st.session_state.thread = ''
 
 
+
 uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
 if uploaded_file is not None:
     reader = PdfReader(uploaded_file)
