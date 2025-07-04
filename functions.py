@@ -31,4 +31,22 @@ def input_query(index,chunks,query):
 
     return I[0]
 
+def response_use_llm(chunks, result_idx,query):
+    context = "\n\n".join([chunks[idx] for idx in result_idx])
+    client = OpenAI(api_key = st.secrets["OPENAI_API_KEY"])
+    prompt = f"""
+    Answer the question based on the context below.
 
+    Context: ```{context}``
+
+    Question: {query}
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    return response.choices[0].message.content

@@ -3,7 +3,7 @@ from PyPDF2 import PdfReader
 from dotenv import load_dotenv
 import re
 from openai import OpenAI
-from functions import chunk_text, get_embedding, input_query
+from functions import chunk_text, get_embedding, input_query, response_use_llm
 import numpy as np
 import faiss
 import tiktoken
@@ -65,11 +65,13 @@ if prompt := st.chat_input("What is up?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    texts = ''
+    context = ''
     for idx in extract_chunk_idx:
-        texts += st.session_state.chunks[idx] + '\n'
+        context += st.session_state.chunks[idx] + '\n'
 
-    response = texts
+    response = response_use_llm(context)
+
+    response = context
     with st.chat_message("assistant"):
         st.markdown(response)
     # Add assistant response to chat history
