@@ -82,5 +82,4 @@ if prompt := st.chat_input("Ask some questions"):
 st.markdown("""
 ---
 🖋️ *Developed by Mark Samuel Nicasio (Sam)*
-[GitHub](https://github.com/yourusername)
 """)
